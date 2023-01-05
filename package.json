@@ -1,0 +1,21 @@
+{
+  "name": "cars2_model_parser",
+  "version": "1.0.0",
+  "description": "Cars 2 TVG Global Model Parser",
+  "main": "",
+  "scripts": {
+    "test": "node test/index.test.mjs"
+  },
+  "type": "module",
+  "author": "iseeeva",
+  "license": "ISC",
+  "dependencies": {
+    "@petamoriken/float16": "^3.7.0",
+    "lodash-es": "^4.17.21",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.34.0",
+    "eslint": "^8.31.0"
+  }
+}
