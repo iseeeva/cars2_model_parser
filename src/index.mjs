@@ -29,7 +29,7 @@ export function globalModelParser(octFileName, options = { swap_endian: false })
   const oct = xmlJS.xml2js(fs.readFileSync(octFileName, 'utf-8'), { compact: true })
 
   oct.root_node.SceneTreeNodePool.Node.forEach((node) => {
-    if (node.Type._text === 'SubGeometryLit') {
+    if (node.Type._text === 'SubGeometryLit' || node.Type._text === 'SubGeometry') {
       // NODE VARIABLES //
 
       const node_id = Number(removeSpaces(node._text)) // Node ID
@@ -40,6 +40,8 @@ export function globalModelParser(octFileName, options = { swap_endian: false })
       const node_vref = [] // VertexStream References
       const node_iref = Number(node.IndexStreamReference._text) // IndexStream Reference
 
+      if (node.VertexStreamReferences.entry === undefined)
+        return
       xml_converter_shits = Array.isArray(node.VertexStreamReferences.entry) ? node.VertexStreamReferences.entry : [node.VertexStreamReferences.entry]
       xml_converter_shits.forEach((ref) => { node_vref.push(Number(ref._text)) })
       xml_converter_shits = Array.isArray(node.ParentNodeReferences.entry) ? node.ParentNodeReferences.entry : [node.ParentNodeReferences.entry]
@@ -77,6 +79,8 @@ export function globalModelParser(octFileName, options = { swap_endian: false })
               }
             })
 
+            if (vertex.Elements.Element === undefined)
+              return
             xml_converter_shits = Array.isArray(vertex.Elements.Element) ? vertex.Elements.Element : [vertex.Elements.Element]
             xml_converter_shits.forEach((element) => {
               const velement_array = []
